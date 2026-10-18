@@ -39,18 +39,20 @@ p{margin:0 0 16px}
 .band .links{font:400 14px/1.6 var(--mono);color:var(--band-muted);display:flex;flex-wrap:wrap;gap:4px 20px;margin:0}
 .band .links a{color:var(--band-accent);text-decoration:none}
 .band .links a:hover{text-decoration:underline}
-.sheet{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:40px}
-@media (max-width:760px){.sheet{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.sheet a{text-decoration:none;display:grid;gap:8px}
-.sheet .ph{overflow:hidden;aspect-ratio:4/5;background:#000;border:1px solid var(--band-rule)}
-.sheet img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease, filter .3s}
-.sheet a:hover img{transform:scale(1.04)}
-.sheet .lbl{font:400 13px/1.3 var(--mono);color:var(--band-muted);display:flex;justify-content:space-between;gap:8px}
-.sheet a:hover .lbl{color:var(--band-accent)}
-.sheet .lbl span:last-child{opacity:.7}
 
-section.proj{padding-top:72px}
-section.proj + section.proj{margin-top:24px;border-top:1px solid var(--rule)}
+section.proj{border-top:1px solid var(--rule)}
+section.proj:first-of-type{margin-top:40px}
+section.proj:last-of-type{border-bottom:1px solid var(--rule)}
+details.acc>summary{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:24px;align-items:center;padding:28px 0;cursor:pointer;list-style:none}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary h2{grid-column:1;margin:0 0 6px;transition:color .15s}
+details.acc>summary .meta{grid-column:1;display:block;margin:0}
+details.acc>summary .chev{grid-column:2;grid-row:1/span 2}
+details.acc>summary:hover h2{color:var(--accent)}
+.chev{flex:none;width:12px;height:12px;margin:0 6px 8px 0;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .2s ease}
+details.acc[open]>summary .chev{transform:rotate(225deg);margin-bottom:0;margin-top:8px}
+details.acc>summary:hover .chev{border-color:var(--accent)}
+.acc-body{padding:8px 0 64px}
 h2{font:800 clamp(32px,4.4vw,48px)/1.02 var(--sans);font-stretch:82%;margin:0 0 10px;letter-spacing:-.005em}
 .meta{font:400 14px/1.6 var(--mono);color:var(--muted);margin:0 0 30px}
 .meta .flag{display:inline-flex;align-items:center;gap:7px;color:var(--fg)}
@@ -107,6 +109,10 @@ ul.plain.todo li::before{content:"";position:absolute;left:0;top:.55em;width:9px
 .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 20px;margin-top:8px}
 @media (max-width:700px){.grid2{grid-template-columns:1fr}}
 .grid2 img{width:100%;height:auto}
+/* two images of different shapes at the same height: columns sized by aspect ratio */
+.ratio{display:grid;gap:24px 20px;margin-top:24px;align-items:start}
+.ratio img{width:100%;height:auto}
+@media (max-width:700px){.ratio{grid-template-columns:1fr!important}}
 .zoom{display:block;padding:0;border:0;background:none;cursor:zoom-in;width:100%;overflow:hidden}
 .zoom img{transition:transform .5s ease}
 .zoom:hover img{transform:scale(1.02)}
@@ -150,7 +156,7 @@ dialog.lb{border:0;padding:0;background:transparent;max-width:min(1200px,94vw);m
 dialog.lb::backdrop{background:rgba(0,0,0,.88)}
 dialog.lb img{max-height:84vh;width:auto;margin:auto;background:#fff}
 dialog.lb p{color:#ddd;font:400 13px var(--mono);text-align:center;margin:10px 0 0}
-@media (prefers-reduced-motion: reduce){.sheet img,.zoom img,.yt img{transition:none}}
+@media (prefers-reduced-motion: reduce){.zoom img,.yt img,.chev{transition:none}}
 </style>
 <style>body{margin:0}</style>
 </head>
@@ -160,21 +166,114 @@ dialog.lb p{color:#ddd;font:400 13px var(--mono);text-align:center;margin:10px 0
     <h1>Gabriel Irazabal</h1>
     <p class="intro">Electrical engineering student at Stanford. I design PCBs and write the firmware that runs on them.</p>
     <p class="links"><span>B.S. EECS, 2029</span><a href="#contact">irazabal@stanford.edu</a><a href="https://www.linkedin.com/in/gabriel-irazabal-48aab7343/" target="_blank" rel="noopener">LinkedIn ↗</a></p>
-    <nav class="sheet" aria-label="Projects">
-      <a href="#balloon"><div class="ph"><img src="img/hab_mainboard.jpg" alt="Balloon flight computer board"></div><div class="lbl"><span>Balloon flight computer</span><span>2026</span></div></a>
-      <a href="#shotbot"><div class="ph"><img src="img/shotbot_tile.jpg" alt="Shotbot at the bottom of a staircase"></div><div class="lbl"><span>Shotbot</span><span>2025</span></div></a>
-      <a href="#neuraflow"><div class="ph"><img src="img/neuraflow_613.jpg" alt="NeuraFlow glasses being worn"></div><div class="lbl"><span>NeuraFlow</span><span>2026</span></div></a>
-      <a href="#shadowhive"><div class="ph"><img src="img/shadowhive_photo.jpg" alt="ShadowHive team at their demo" style="object-position:50% 45%"></div><div class="lbl"><span>ShadowHive</span><span>2026</span></div></a>
-    </nav>
   </div>
 </header>
 
 <div class="page">
 
+<!-- ============ IREC AV BAY ============ -->
+<section class="proj" id="irec">
+  <details class="acc">
+    <summary><h2>Rocket avionics bay</h2><span class="meta">Sept 2026 – present · Avionics lead, SSI Rockets · IREC 2027 · <span class="flag">Not built yet</span></span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="acc-body">
+
+  <div class="row">
+    <figure>
+      <div class="callouts shot">
+        <img src="img/irec_avbay_cad.jpg" alt="CAD model of the avionics bay with numbered callouts" width="900" height="1530">
+        <span class="n" data-t="Top bulkhead: U-bolt, charge wells" style="--x:27%;--y:27%">1</span>
+        <span class="n l" data-t="Aerolotl flight computer" style="--x:55%;--y:37%">2</span>
+        <span class="n" data-t="TeleMetrum on its sled" style="--x:28%;--y:47%">3</span>
+        <span class="n l" data-t="Pull-pin switch stack" style="--x:75%;--y:47%">4</span>
+        <span class="n" data-t="Power board, 4 × 18650" style="--x:50%;--y:54%">5</span>
+        <span class="n l" data-t="3/8&quot;-16 threaded rods" style="--x:69.5%;--y:66%">6</span>
+        <span class="n" data-t="Bottom bulkhead" style="--x:22%;--y:78%">7</span>
+      </div>
+      <ol class="key">
+        <li><b>1</b>Top bulkhead</li>
+        <li><b>2</b>Aerolotl flight computer</li>
+        <li><b>3</b>TeleMetrum on its sled</li>
+        <li><b>4</b>Pull-pin switch stack</li>
+        <li><b>5</b>Power board, 4 × 18650</li>
+        <li><b>6</b>3/8"-16 threaded rods</li>
+        <li><b>7</b>Bottom bulkhead</li>
+      </ol>
+      <figcaption>The av bay assembly in Onshape.</figcaption>
+    </figure>
+
+    <div class="text">
+      <p>I'm the avionics lead on the Stanford Student Space Initiative rocket team. We're building a rocket for the Intercollegiate Rocket Engineering Competition (IREC) in Midland, Texas, in June 2027. This is its avionics bay, or av bay: the electronics section in the middle of the rocket. It sits between the two parachute compartments, with a bulkhead closing off each end, and it holds the computers that track the flight and decide when to deploy the parachutes.</p>
+      <p>On the pad, we pull arming pins through the side of the rocket, which switches power on to the flight computers. Until then nothing can fire. In flight, two independent computers measure acceleration, rotation and air pressure, which gives altitude. At apogee each one fires an e-match, a small electric igniter that lights a black-powder charge and pushes out the drogue parachute. Lower down, a second charge releases the main. The whole way down, our flight computer radios its GPS position and flight data to the ground, so we can follow the flight live and find the rocket after it lands. A small 4K camera records the flight.</p>
+      <p>One of the two computers is a commercial altimeter, an Altus Metrum TeleMetrum, because IREC requires a commercial backup. The other is Aerolotl, the team's own flight computer. Each one has its own battery and its own arming switch, so if one computer, battery or switch fails, the other still deploys the parachutes.</p>
+      <p>There are two custom boards in the bay. I designed the power board, and I helped design the flight computer, Aerolotl, which I also oversee as avionics lead. I modeled the bay itself in Onshape.</p>
+      <table class="specs">
+        <tr><th>Boards</th><td>Power board (2 layers) and flight computer (4 layers), both round, 145.3 mm across</td></tr>
+        <tr><th>Batteries</th><td>Four 18650 Li-ion cells</td></tr>
+        <tr><th>Computers</th><td>Aerolotl (student-built), Altus Metrum TeleMetrum (commercial)</td></tr>
+        <tr><th>Size</th><td>Fits a 6 in airframe, about 7 in from bulkhead to bulkhead</td></tr>
+        <tr><th>Tools</th><td>KiCad 10, Onshape, JLCPCB</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3>Power board</h3>
+  <div class="text">
+    <p>I designed the power board. It holds the four 18650 cells and splits them into three electrically isolated supplies. The TeleMetrum and Aerolotl each get their own cell, pull-pin switch and connector, so a short or a dead cell on one side can't take down the other.</p>
+    <p>The other two cells, in series, run the camera. A buck converter makes 5 V for the camera and for an ESP32 that starts and stops recording. A divider on the converter's enable pin shuts it off below 5.4 V (about 2.7 V per cell), so the pack never gets over-discharged.</p>
+    <p>Arming is mechanical. Until the pins come out, the flight computers have no power, so no software bug can fire a charge while the rocket is disarmed. I laid the board out around the exact shape of the switch stack, not the other way round, then dropped it into the Onshape bay assembly for a clash check: 0 interferences.</p>
+  </div>
+  <div class="grid2" style="margin-top:24px">
+    <figure><button class="zoom" data-cap="Power board, top."><img class="shot" src="img/irec_power_top.jpg" alt="3D render of the top of the power board with four 18650 cells" loading="lazy" width="1200" height="1200"></button><figcaption>Top of the power board: the four 18650 cells, the arming connectors and the outputs.</figcaption></figure>
+    <figure><button class="zoom" data-cap="Power board, bottom."><img class="shot" src="img/irec_power_bottom.jpg" alt="3D render of the bottom of the power board" loading="lazy" width="1200" height="1200"></button><figcaption>Bottom: the ESP32 socket, the camera mount and the buck converter.</figcaption></figure>
+  </div>
+  <div class="ratio" style="grid-template-columns:minmax(0,1.702fr) minmax(0,1.025fr)">
+    <figure><button class="zoom" data-cap="Pull-pin arming stack on the power board."><img class="shot" src="img/irec_power_armstack.jpg" alt="3D render of the power board with the pull-pin switch stack" loading="lazy" width="1200" height="705"></button><figcaption>The arming stack. Each 3D-printed carrier holds two microswitches worked by one pull-pin.</figcaption></figure>
+    <figure><button class="zoom" data-cap="Schematic for the two flight-computer supplies."><img class="shot" src="img/irec_power_supplies.webp" alt="Schematic of the two independent single-cell supplies" loading="lazy" width="820" height="800"></button><figcaption>Schematic of the two flight-computer supplies. Their returns aren't tied to ground, on purpose.</figcaption></figure>
+  </div>
+
+  <h3>Flight computer</h3>
+  <div class="row">
+    <figure><button class="zoom" data-cap="Aerolotl flight computer."><img class="shot" src="img/irec_fc_angled.jpg" style="width:100%;height:auto" alt="3D render of the Aerolotl flight computer" loading="lazy" width="1200" height="961"></button><figcaption>Aerolotl, 3D render.</figcaption></figure>
+    <div class="text">
+      <p>I helped design Aerolotl, which started from the team's earlier Aerolotl rev 2, with the airbrake servo hardware moved onto its own board. As avionics lead I also oversee its development, and it's built to fit the rest of the bay. It takes its power from the power board, and its outline matches the bay CAD, with a notch for the TeleMetrum sled and rubber grommets where the rods pass through.</p>
+      <p>It's a 4-layer board built around an STM32G473, with motion and pressure sensors, GPS, a LoRa radio for telemetry and a microSD card for logging. The two parachute channels have a hardware arming input in series with their supply, so with it open the igniters can't get power, whatever the firmware does. The firing current is also sized on purpose: two 1 Ω resistors per channel give about 0.86 A from a 3.0 V cell and 1.27 A from a full 4.2 V cell. That stays above the e-match's 0.75 A recommended minimum across the whole battery range, and it still limits the current if an output shorts.</p>
+    </div>
+  </div>
+  <div class="grid2" style="margin-top:24px">
+    <figure><button class="zoom" data-cap="Aerolotl copper routing, all four layers."><img class="shot" src="img/irec_fc_routing.webp" alt="KiCad view of the flight computer's copper routing on four layers" loading="lazy" width="1200" height="1177"></button><figcaption>All four copper layers, with the pours hidden so the traces show.</figcaption></figure>
+    <figure><button class="zoom" data-cap="Aerolotl top-level schematic."><img class="shot" src="img/irec_fc_schematic.webp" alt="Top-level hierarchical schematic of the flight computer" loading="lazy" width="1400" height="978"></button><figcaption>Top-level schematic. Each block is its own sheet: power, MCU, sensors, radio, igniters, SD card.</figcaption></figure>
+  </div>
+
+  <h3>The bay in CAD</h3>
+  <div class="text">
+    <p>Both boards are sized to the inside of the 6 in airframe and stacked on two 3/8"-16 steel threaded rods, with a washer and nut clamping each face. The TeleMetrum stands on a vertical sled bolted to both boards, and the end bulkheads carry the U-bolts for the parachute harnesses and the black-powder charge wells. The model is parametric, with disc size, spacing and rod positions all set as parameters. Both boards come in from KiCad as STEP files, and their outlines, rod holes and cut-outs were drawn to match the CAD exactly.</p>
+  </div>
+
+  <h3>Where it's at</h3>
+  <div class="text">
+    <p class="status">The boards haven't been built yet, and nothing has flown. Both are designed and checked, and the whole bay fits together in CAD.</p>
+    <p class="lh">Done</p>
+    <ul class="plain ok">
+      <li>Power board designed and checked, fabrication files ready</li>
+      <li>Flight computer routed and design-rule clean, ready to order</li>
+      <li>Bay assembled in Onshape with both real boards in it</li>
+    </ul>
+    <p class="lh">Left to do</p>
+    <ul class="plain todo">
+      <li>Build and bench test both boards</li>
+      <li>Fly at IREC in June 2027</li>
+    </ul>
+    <p>Two other avionics projects are at an earlier stage. I'm scoping a small power-amplifier board for PigeonVision, our live video downlink from two cameras at 1.28 GHz, and the airbrakes controller board has its schematic drafted while the airbrakes team picks a motor.</p>
+  </div>
+    </div>
+  </details>
+</section>
+
 <!-- ============ BALLOON ============ -->
 <section class="proj" id="balloon">
-  <h2>High-altitude balloon flight computer</h2>
-  <p class="meta">June 2026 – present · Project lead, team of five · <span class="flag">Not flown yet</span></p>
+  <details class="acc">
+    <summary><h2>High-altitude balloon flight computer</h2><span class="meta">June 2026 – present · Project lead, team of five · <span class="flag">Not flown yet</span></span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="acc-body">
 
   <div class="row">
     <figure>
@@ -310,12 +409,15 @@ dialog.lb p{color:#ddd;font:400 13px var(--mono);text-align:center;margin:10px 0
     <figure><button class="zoom" data-cap="APRS board layout."><img class="shot" src="img/hab_layout_aprs.webp" alt="KiCad layout of the APRS board" loading="lazy" width="1306" height="698"></button><figcaption>APRS board layout. Buck-boost on the left, DRA818V and antenna on the right.</figcaption></figure>
     <figure><button class="zoom" data-cap="APRS board back from fab."><img class="shot" src="img/hab_aprs_board.jpg" alt="Photo of the APRS board" loading="lazy" style="aspect-ratio:16/10;object-fit:cover;object-position:50% 30%"></button><figcaption>APRS board back from fab, before the radio module went on.</figcaption></figure>
   </div>
+    </div>
+  </details>
 </section>
 
 <!-- ============ SHOTBOT ============ -->
 <section class="proj" id="shotbot">
-  <h2>Shotbot</h2>
-  <p class="meta">Sept 2025 – Feb 2026 · Stanford Moonshot Club, team of five · Electrical system and firmware</p>
+  <details class="acc">
+    <summary><h2>Shotbot</h2><span class="meta">Sept 2025 – Feb 2026 · Stanford Moonshot Club, team of five · Electrical system and firmware</span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="acc-body">
 
   <div class="row">
     <figure class="tall">
@@ -377,12 +479,15 @@ dialog.lb p{color:#ddd;font:400 13px var(--mono);text-align:center;margin:10px 0
     </svg>
     <figcaption>Green is power, dashed is control from the ESP32.</figcaption>
   </figure>
+    </div>
+  </details>
 </section>
 
 <!-- ============ HACKATHONS ============ -->
 <section class="proj" id="hackathons">
-  <h2>Hackathons</h2>
-  <p class="meta">Weekend builds</p>
+  <details class="acc">
+    <summary><h2>Hackathons</h2><span class="meta">Weekend builds · NeuraFlow, ShadowHive</span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="acc-body">
   <div class="hk">
     <article id="neuraflow">
       <h3>NeuraFlow</h3>
@@ -410,18 +515,23 @@ dialog.lb p{color:#ddd;font:400 13px var(--mono);text-align:center;margin:10px 0
       </div>
     </article>
   </div>
+    </div>
+  </details>
 </section>
 
 <!-- ============ OTHER ============ -->
 <section class="proj" id="other">
-  <h2 style="margin-bottom:24px">Other work</h2>
+  <details class="acc">
+    <summary><h2>Other work</h2><span class="meta">Sonna · SSI Satellites · ARM Lab · Solar Car</span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="acc-body">
   <dl class="work">
     <div><dt>Sonna<span>Hardware engineer · Apr–Jun 2026</span></dt><dd>Schematic for a consumer EEG sleep headband (ADS1299 front end, nRF5340, bone-conduction audio) and its power board: USB-C charging, LiPo protection, and a hardware thermal cutoff at 45 °C.</dd></div>
-    <div><dt>SSI Rockets<span>Avionics lead · Sept 2026–now</span></dt><dd>Running the avionics sub-team for the June 2027 IREC competition.</dd></div>
     <div><dt>SSI Satellites<span>Avionics engineer · Apr 2026–now</span></dt><dd>RF TT&amp;C schematic and layout for a new 1U CubeSat. Built an RP2350 + SX1280 LoRa testbed to see how spreading factor affects data rate and sensitivity.</dd></div>
     <div><dt>ARM Lab<span>Researcher · Mar–Jun 2026</span></dt><dd>Fingertip force sensor (5 FSRs, XIAO BLE) for capturing grasp pressure, and the URDF model of the lab's NanoHand.</dd></div>
     <div><dt>Solar Car<span>Mech + elec · Sept 2025–Mar 2026</span></dt><dd>Flyback-based battery emulator PCB for testing the BMS, and wheel shrouds modeled in Fusion 360.</dd></div>
   </dl>
+    </div>
+  </details>
 </section>
 
 
@@ -450,6 +560,25 @@ dialog.lb p{color:#ddd;font:400 13px var(--mono);text-align:center;margin:10px 0
   if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){
     document.querySelectorAll('video[autoplay]').forEach(function(v){v.removeAttribute('autoplay');try{v.pause()}catch(e){}});
   }
+  // project dropdowns: a #hash opens its section; closing one pauses its videos; printing opens all
+  function openHash(){
+    var id=decodeURIComponent(location.hash.slice(1)), el=id&&document.getElementById(id);
+    if(!el) return;
+    var d=el.querySelector('details.acc');
+    if(d) d.open=true;
+    for(var p=el;p;p=p.parentElement){if(p.tagName==='DETAILS') p.open=true;}
+    el.scrollIntoView();
+  }
+  window.addEventListener('hashchange',openHash); openHash();
+  document.querySelectorAll('details.acc').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      d.querySelectorAll('video').forEach(function(v){
+        if(!d.open){try{v.pause()}catch(e){}}
+        else if(v.hasAttribute('autoplay')){var r=v.play();if(r&&r.catch)r.catch(function(){});}
+      });
+    });
+  });
+  window.addEventListener('beforeprint',function(){document.querySelectorAll('details.acc').forEach(function(d){d.open=true;});});
 })();
 </script>
 </body>

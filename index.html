@@ -220,6 +220,7 @@ dialog.lb p{color:#ddd;font:400 13px var(--mono);text-align:center;margin:10px 0
   <div class="text">
     <p>I designed the power board. It holds the four 18650 cells and splits them into three electrically isolated supplies. The TeleMetrum and Aerolotl each get their own cell, pull-pin switch and connector, so a short or a dead cell on one side can't take down the other.</p>
     <p>The other two cells, in series, run the camera. A buck converter makes 5 V for the camera and for an ESP32 that starts and stops recording. A divider on the converter's enable pin shuts it off below 5.4 V (about 2.7 V per cell), so the pack never gets over-discharged.</p>
+    <p>The camera is a RunCam Split 4, which records straight to its own microSD card. The ESP32 runs the <a href="https://github.com/James2035-bill/esp32-runcam-controller" target="_blank" rel="noopener">camera controller firmware</a>: it talks to the camera over its UART control port, and a phone connects to the ESP32 over Bluetooth to wake the camera and start or stop recording.</p>
     <p>Arming is mechanical. Until the pins come out, the flight computers have no power, so no software bug can fire a charge while the rocket is disarmed. I laid the board out around the exact shape of the switch stack, not the other way round, then dropped it into the Onshape bay assembly for a clash check: 0 interferences.</p>
   </div>
   <div class="grid2" style="margin-top:24px">
